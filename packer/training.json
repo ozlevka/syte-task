@@ -4,7 +4,7 @@
     "image": "ubuntu:18.04",
     "commit": "true",
     "changes": [
-       "ENTRYPOINT [\"python\", \"/app/server.py\"]"
+       "ENTRYPOINT [\"/usr/bin/python3\", \"/app/server.py\"]"
     ]
   }],
  "provisioners": [

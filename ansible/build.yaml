@@ -1,7 +1,30 @@
 ---
 - hosts: all
+  variables:
+    container_pilot_version: 3.8.0
+    flask_version: 1.0.3
   tasks:
     - name: Install flask
       pip:
-        name: flask==1.0.3
+        name: "flask=={{ flask_version }}"
         state: latest
+
+    - name: Download python script for server
+      get_url:
+        url: "https://raw.githubusercontent.com/ozlevka/syte-task/master/server/server.py"
+        dest: /app/
+
+    - name: Download containerpilot
+      get_url:
+        url: "https://github.com/joyent/containerpilot/releases/download/{{ container_pilot_version }}/containerpilot-{{ container_pilot_version }}.tar.gz"
+        dest: "/tmp"
+
+    - name: Install container pilot
+      shell: |
+        tar xf containerpilot*.tar.gz
+        mv containerpilot /usr/local/bin
+
+    - name: Download container pilot config
+      get_url:
+        url:
+        dest: "/app/config"
