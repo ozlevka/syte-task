@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+   server:
+     image: ozlevka/syte-server:0.0.1
+     networks:
+       - syte
+     deploy:
+       mode: replicated
+       replicas: 3
+       endpoint_mode: dnsrr
+       resources:
+         limits:
+           memory: 100MB
+           cpus: "1"
+   lb:
+     image: ozlevka/syte-lb:0.0.1
+     ports:
+        - "8080:8080"
+     networks:
+       - syte
+
+
+
+
+networks:
+  syte:
+    driver: overlay
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.20.0.0/16"

@@ -1,0 +1,38 @@
+{
+  "builders": [{
+    "type": "docker",
+    "image": "nginx",
+    "commit": "true",
+    "changes": [
+       "ENTRYPOINT [\"/start-nginx.sh\"]"
+    ]
+  }],
+ "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "apt-get -y update",
+        "apt-get -y install curl"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "./config/nginx.conf",
+      "destination": "/etc/nginx/nginx.conf"
+    },
+    {
+      "type": "file",
+      "source": "./config/start-nginx.sh",
+      "destination": "/"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "ozlevka/syte-lb",
+        "tag": "0.0.1"
+      }
+    ]
+  ]
+}
