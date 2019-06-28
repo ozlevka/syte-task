@@ -1,7 +1,6 @@
 ---
 - hosts: all
   vars:
-    container_pilot_version: 3.8.0
     flask_version: 1.0.3
   tasks:
     - name: Install flask
