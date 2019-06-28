@@ -1,0 +1,57 @@
+{
+  "variables": {
+    "config_file": "vars/default.yml",
+    "tmp_dir": "/tmp"
+  },
+
+  "builders":[
+    {
+      "type": "docker",
+      "image": "nginx",
+      "commit": true,
+      "run_command": ["-d", "{{.Image}}", "nginx -g daemon off"]
+    }
+  ],
+  "provisioners":[
+    {
+      "type": "shell",
+      "inline": [
+        "apt-get -y update",
+        "apt-get install -y software-properties-common",
+        "apt-add-repository ppa:ansible/ansible",
+        "apt-get -y update",
+        "apt-get install -y ansible"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "mkdir -p {{user `tmp_dir`}}"
+      ]
+    }
+    ,
+    {
+      "type": "file",
+      "source": "{{user `config_file`}}",
+      "destination": "{{user `tmp_dir`}}/vars.yml"
+    }
+    ,
+    {
+      "type": "ansible-local",
+      "staging_directory": "{{user `tmp_dir`}}/ansible",
+      "playbook_file": "playbook.yml",
+      "extra_arguments": [ "--extra-vars \"tmp_dir={{user `tmp_dir`}} \"" ]
+    }
+
+  ],
+
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "my-nginx",
+        "tag": "0.1"
+      }
+    ]
+  ]
+}

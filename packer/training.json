@@ -1,0 +1,28 @@
+{
+  "builders": [{
+    "type": "docker",
+    "image": "python:3.6.8-stretch",
+    "commit": "true"
+  }],
+ "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "pip install ansible==2.8.1"
+      ]
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "./ansible/build.yaml"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "ozlevka/test-packer",
+        "tag": "0.1"
+      }
+    ]
+  ]
+}
