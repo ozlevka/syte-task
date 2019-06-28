@@ -1,5 +1,3 @@
-.PHONY : clearscr fresh clean all
-
 build-server:
 	#Run build server
 	packer build ./packer/build-server.json
@@ -17,4 +15,8 @@ run:
 stop:
 	# Stop running swarm
 	docker swarm leave -f
+
+upload:
+	# Upload containers (not packer) because you should be logged in.
+	docker push ozlevka/syte-lb:0.0.1 && docker push ozlevka/syte-server:0.0.1
 
