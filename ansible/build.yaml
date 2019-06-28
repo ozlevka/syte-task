@@ -3,5 +3,5 @@
   tasks:
     - name: Install flask
       pip:
-        name: Flask
+        name: flask==1.0.3
         state: latest
