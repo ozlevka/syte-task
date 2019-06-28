@@ -1,6 +1,7 @@
 version: "3.7"
 
 services:
+   # The server is not exposed to outside of syte network
    server:
      image: ozlevka/syte-server:0.0.1
      networks:
@@ -14,13 +15,13 @@ services:
            memory: 100MB
            cpus: "1"
    lb:
+     # Load balancer is balance traffic and actually proxy between servers and the world
+     # Expose port 8080 to localhost
      image: ozlevka/syte-lb:0.0.1
      ports:
         - "8080:8080"
      networks:
        - syte
-
-
 
 
 networks:
