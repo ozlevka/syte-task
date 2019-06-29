@@ -8,7 +8,7 @@ app = Flask(__name__)
 def echo():
     '''
     Receive request.
-    Read request body and return as is
+    Fetch request body and return as is
     :return:
     '''
     if request.data:

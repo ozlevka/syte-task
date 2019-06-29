@@ -105,3 +105,11 @@ venv.bak/
 
 # pycharm
 .idea/
+*.token
+
+
+# Terraform
+*tfplan
+*.terraform*
+*.tfstate*
+*.tfstate.backup
