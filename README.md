@@ -14,11 +14,11 @@ to    serve    with    the    echo    server,    behind    LB
 
 
 # Solution
-The server writen with (Flask)[http://flask.pocoo.org/docs/1.0/] package for small servers. You can review code into server folder.  
+The server writen with [Flask](http://flask.pocoo.org/docs/1.0/) package for small servers. You can review code into server folder.  
 
 For running programs please install:
-1. Packer v1.4.2 (more information)[https://www.packer.io/intro/getting-started/install.html]
-2. Terraform v0.12.3 (more information)[https://learn.hashicorp.com/terraform/getting-started/install.html]
+1. Packer v1.4.2 [more information](https://www.packer.io/intro/getting-started/install.html)
+2. Terraform v0.12.3 [more information](https://learn.hashicorp.com/terraform/getting-started/install.html)
 
 For build images just run:
 ```
